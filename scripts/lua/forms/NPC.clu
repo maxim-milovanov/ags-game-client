@@ -1,0 +1,627 @@
+-----------------------------------------------------------------------
+-- Dialog
+-----------------------------------------------------------------------	
+frmNPCchat = UI_CreateForm( "frmNPCchat", FALSE, 600, 350, 0, 0, TRUE, FALSE )
+UI_ShowForm( frmNPCchat, TRUE )
+UI_AddFormToTemplete( frmNPCchat, FORM_MAIN )
+UI_SetIsDrag( frmNPCchat, FALSE )
+UI_SetFormStyleEx(frmNPCchat, FORM_CENTERBOTTOM, 0, 240)
+
+setBackground(frmNPCchat, true, 600, 350, 190)
+
+labFormname = UI_CreateCompent(frmNPCchat, LABELEX_TYPE, "labFormname", 600, 14, 0, 20)
+UI_SetCaption(labFormname, "CONVERSATION")
+UI_SetTextColor(labFormname, COLOR_WHITE)
+UI_SetLabelExFont(labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK)
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+memCtrl = UI_CreateCompent( frmNPCchat, MEMO_TYPE, "memCtrl", 540, 280, 30, 50)
+UI_SetFontMemo(memCtrl, NPC_DIALOGUE, argbColor("ffffff"))
+setScroll(memCtrl)
+
+-----------------------------------------------------------------------
+-- NPC Trade
+-----------------------------------------------------------------------	
+frmNPCtrade = UI_CreateForm( "frmNPCtrade", FALSE, 261, 250, 0, 0, TRUE, FALSE )
+UI_ShowForm( frmNPCtrade, TRUE )
+UI_AddFormToTemplete( frmNPCtrade, FORM_MAIN )
+UI_SetIsDrag( frmNPCtrade, TRUE )
+
+setBackground(frmNPCtrade, true, 261, 250, 235)
+
+labFormname = UI_CreateCompent(frmNPCtrade, LABELEX_TYPE, "labFormname", 261, 14, 0, 20)
+UI_SetCaption(labFormname, "NPC TRADE" )
+UI_SetTextColor(labFormname, COLOR_WHITE )
+UI_SetLabelExFont(labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+CreateImageGrid(frmNPCtrade, 4, 4, 3, 38, 38, "./texture/ascaron_ui/asc-part-01.png", 55, 55, 52, 49, 255, 50, 50)
+
+grdNPCtradeWeapon = UI_CreateCompent(frmNPCtrade, GOODS_GRID_TYPE, "grdNPCtradeWeapon", 180, 165, 53, 53) 
+UI_SetGridSpace(grdNPCtradeWeapon, 9, 9)
+UI_SetGridContent(grdNPCtradeWeapon, 30, 4)
+UI_SetGridUnitSize(grdNPCtradeWeapon, 32, 32)
+UI_SetMargin(grdNPCtradeWeapon, 0, 0, 0, 0)
+setScroll(grdNPCtradeWeapon)
+
+-----------------------------------------------------------------------
+-- 定义NPC交易数量
+-----------------------------------------------------------------------	
+-- 创建NPC对话表单
+frmNPCTradeNumber = UI_CreateForm( "frmNPCTradeNumber", FALSE, 185, 101, 240, 268, TRUE, FALSE )
+--UI_FormSetHotKey( frmNPCTradeNumber, ALT_KEY, HOTKEY_V ) 
+UI_LoadFormImage( frmNPCTradeNumber, "./texture/gui/old_gui/sure.dds", 185, 101, 0, 0, "", 0, 0 )
+UI_ShowForm( frmNPCTradeNumber, TRUE )
+UI_AddFormToTemplete( frmNPCTradeNumber, FORM_MAIN )
+UI_SetIsDrag( frmNPCTradeNumber, TRUE )
+UI_SetFormStyle( frmNPCTradeNumber, 2 )---左右居中
+UI_SetAlpha( frmNPCTradeNumber, 255 )
+
+
+--创建关闭按钮
+btnClose = UI_CreateCompent( frmNPCTradeNumber, BUTTON_TYPE, "btnClose", 14, 14, 164, 3 )
+UI_LoadButtonImage( btnClose, "./texture/gui/old_gui/PublicC.tga", 14, 14, 116, 175, TRUE )
+
+--创建Title
+--labtitle = UI_CreateCompent( frmNPCTradeNumber, LABELEX_TYPE, "labtitle", 47, 11, 70, 4 )
+--UI_SetCaption( labtitle, "Trade Quantity" )
+--UI_SetTextColor( labtitle, COLOR_WHITE )
+--UI_SetLabelExFont( labtitle, EXO_Regular_S12, TRUE, COLOR_BLACK )
+
+--创建数量两个字
+labNumber = UI_CreateCompent( frmNPCTradeNumber, LABELEX_TYPE, "labNumber", 23, 11, 44, 32 )
+UI_SetCaption( labNumber, "Quantity" )
+UI_SetTextColor( labNumber, COLOR_BLACK )
+UI_SetLabelExFont( labNumber, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建总价两个字
+labSum = UI_CreateCompent( frmNPCTradeNumber, LABELEX_TYPE, "labSum", 23, 11, 44, 54 )
+UI_SetCaption( labSum, "Total Price" )
+UI_SetTextColor( labSum, COLOR_BLACK )
+UI_SetLabelExFont( labSum, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建数量和总价显示底纹
+imgNumber = UI_CreateCompent( frmNPCTradeNumber, IMAGE_TYPE, "imgNumber", 87, 18, 71, 28 )
+UI_LoadImage( imgNumber, "./texture/gui/old_gui/PublicC.tga", NORMAL, 87, 18, 99, 235 )
+imgSum = UI_CreateCompent( frmNPCTradeNumber, IMAGE_TYPE, "imgSum", 87, 18, 71, 50 )
+UI_LoadImage( imgSum, "./texture/gui/old_gui/PublicC.tga", NORMAL, 87, 18, 99, 235 )
+
+
+--加载数量输入框
+edtNPCTradeNumber = UI_CreateCompent( frmNPCTradeNumber, EDIT_TYPE, "edtNPCTradeNumber", 87, 11, 79, 32 )
+UI_SetTextColor( edtNPCTradeNumber, COLOR_BLACK )
+UI_SetEditMaxNum( edtNPCTradeNumber, 3 )
+UI_SetEditMaxNumVisible( edtNPCTradeNumber, 3 )
+
+--加载总价显示
+labNPCTradeNumber = UI_CreateCompent( frmNPCTradeNumber, LABELEX_TYPE, "labNPCTradeNumber", 87, 11, 79, 54 )
+UI_SetCaption( labNPCTradeNumber, "0" )
+UI_SetTextColor( labNPCTradeNumber, COLOR_WHITE )
+UI_SetLabelExFont( labNPCTradeNumber, EXO_Regular_S12, TRUE, COLOR_BLACK )
+
+--加载交易
+btnYes = UI_CreateCompent( frmNPCTradeNumber, BUTTON_TYPE, "btnYes", 41, 19, 85, 78 )
+UI_LoadButtonImage( btnYes, "./texture/gui/old_gui/PublicC.tga", 41, 19, 0, 40, TRUE )
+
+--加载取消按钮
+btnNo = UI_CreateCompent( frmNPCTradeNumber, BUTTON_TYPE, "btnNo", 41, 19, 130, 78 )
+UI_LoadButtonImage( btnNo, "./texture/gui/old_gui/PublicC.tga", 41, 19, 0, 20, FALSE )
+
+-----------------------------------------------------------------------
+-- bank
+-----------------------------------------------------------------------	
+frmNPCstorage = UI_CreateForm( "frmNPCstorage", FALSE, 343, 425, 100, 100, TRUE, FALSE )
+--UI_FormSetHotKey( frmNPCstorage, ALT_KEY, HOTKEY_V ) 
+UI_ShowForm( frmNPCstorage, TRUE )
+UI_AddFormToTemplete( frmNPCstorage, FORM_MAIN )
+UI_SetIsDrag( frmNPCstorage, TRUE )
+
+setBackground(frmNPCstorage, true, 343, 425, 225)
+
+labFormname = UI_CreateCompent(frmNPCstorage, LABELEX_TYPE, "labFormname", 15, 14, 130, 20)
+UI_SetCaption( labFormname, "ITEM BANK" )
+UI_SetTextColor( labFormname, COLOR_WHITE )
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+
+CreateImageGrid(frmNPCstorage, 6, 8, 3, 38, 38, "./texture/ascaron_ui/asc-part-01.png", 55, 55, 52, 49, 255, 50, 50)
+grdNPCstorage = UI_CreateCompent( frmNPCstorage, GOODS_GRID_TYPE, "grdNPCstorage", 260, 330, 53, 53 )
+UI_SetGridSpace(grdNPCstorage, 9, 9)
+UI_SetGridContent(grdNPCstorage, 16, 6)
+UI_SetGridUnitSize(grdNPCstorage, 32, 32)
+UI_SetMargin(grdNPCstorage, 0, 0, 0, 0)
+setScroll(grdNPCstorage)
+
+-----------------------------------------------------------------------
+-- NPC Quest view
+-----------------------------------------------------------------------
+frmNPCMission = UI_CreateForm( "frmNPCMission", FALSE, 600, 500, 269, 150, TRUE, FALSE )
+UI_ShowForm( frmNPCMission, TRUE )
+UI_AddFormToTemplete( frmNPCMission, FORM_MAIN )
+UI_SetIsDrag( frmNPCMission, TRUE )
+UI_SetFormStyleEx(frmNPCMission, FORM_CENTERBOTTOM, 0, 160)
+setBackground(frmNPCMission, true, 600, 500, 225)
+
+labFormname = UI_CreateCompent(frmNPCMission, LABELEX_TYPE, "labFormname", 600, 14, 0, 20)
+UI_SetCaption( labFormname, "QUEST" )
+UI_SetTextColor( labFormname, COLOR_WHITE )
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+memMission = UI_CreateCompent( frmNPCMission, MEMOEX_TYPE, "memMission", 540, 368, 30, 50 )
+UI_SetFontMemo(memMission, NPC_DIALOGUE, argbColor("ffffff"))
+setScroll(memMission)
+
+
+btnYes = CreateButton(4, frmNPCMission, "btnYes", "ACCEPT", EXO_Regular_S16, 165, 42, 305, 488 - 50)
+btnComplete = CreateButton(4, frmNPCMission, "btnComplete", "COMPLETE", EXO_Regular_S16, 165, 42, 305, 488 - 50)
+
+btnNo = CreateButton(5, frmNPCMission, "btnNo", "CANCEL", EXO_Regular_S16, 165, 42, 130, 488 - 50)
+UI_SetButtonModalResult( btnNo, BUTTON_CLOSE )
+
+-----------------------------------------------------------------------
+-- Forge equip \ Socket set
+-----------------------------------------------------------------------	
+frmNPCforge = UI_CreateForm( "frmNPCforge", FALSE, 400, 285, 240, 70, TRUE, FALSE )
+UI_ShowForm( frmNPCforge, TRUE )
+UI_AddFormToTemplete( frmNPCforge, FORM_MAIN )
+UI_SetFormStyle( frmNPCforge, 2 )
+UI_SetIsDrag( frmNPCforge, TRUE )
+
+setBackground(frmNPCforge, true, 400, 285, 235)
+
+labFormname = UI_CreateCompent(frmNPCforge, LABELEX_TYPE, "labFormname", 400, 14, 0, 20)
+UI_SetCaption( labFormname, "FORGE EQUIPMENT" )
+UI_SetTextColor( labFormname, argbColor("ffffff"))
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+image = UI_CreateCompent(frmNPCforge, IMAGE_TYPE, "image", 38, 38, 30, 50)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+image = UI_CreateCompent(frmNPCforge, IMAGE_TYPE, "image", 38, 38, 30, 98)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+image = UI_CreateCompent(frmNPCforge, IMAGE_TYPE, "image", 38, 38, 30, 146)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+image = UI_CreateCompent(frmNPCforge, IMAGE_TYPE, "image", 162, 40, 30, 224)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 269, 40, 270, 1173)
+
+image = UI_CreateCompent(frmNPCforge, IMAGE_TYPE, "image", 30, 30, 35, 229)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 29, 29, 243, 326)
+
+cmdForgeItem0 = UI_CreateCompent( frmNPCforge, COMMAND_ONE_TYPE, "cmdForgeItem0", 32, 32, 33, 53 )
+cmdForgeItem1 = UI_CreateCompent( frmNPCforge, COMMAND_ONE_TYPE, "cmdForgeItem1", 32, 32, 33, 101 )
+cmdForgeItem2 = UI_CreateCompent( frmNPCforge, COMMAND_ONE_TYPE, "cmdForgeItem2", 32, 32, 33, 149 )
+UI_SetHint( cmdForgeItem0, "Forge item" )
+UI_SetHint( cmdForgeItem1, "Attribute Gem" )
+UI_SetHint( cmdForgeItem2, "Refining Gem" )
+
+labForgeGold = UI_CreateCompent( frmNPCforge, LABELEX_TYPE, "labForgeGold", 112, 12, 70, 236 )
+UI_SetCaption( labForgeGold, "0" )
+UI_SetTextColor( labForgeGold, argbColor("a3a3a3"))
+UI_SetLabelExFont( labForgeGold, EXO_Regular_S14, FALSE, COLOR_WHITE )
+
+image = UI_CreateCompent(frmNPCforge, IMAGE_TYPE, "image", 340, 19, 35, 194)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 340, 19, 306, 1216)
+
+proNPCforge = UI_CreateCompent( frmNPCforge, PROGRESS_TYPE, "proNPCforge", 333, 13, 33, 197)
+UI_LoadImage( proNPCforge, "./texture/ascaron_ui/asc-part-01.png", PROGRESS_PROGRESS, 333, 13, 306, 1239)
+
+memForgeItemState = UI_CreateCompent( frmNPCforge, MEMO_TYPE, "memForgeItemState", 294, 170, 82, 54 )
+UI_SetTextColor( memForgeItemState, COLOR_BLACK )
+UI_SetMemoMaxNumPerRow( memForgeItemState, 24 )
+UI_SetMemoRowHeight( memForgeItemState, 17 )
+
+lstForgeItemState = UI_CreateCompent( frmNPCforge, LIST_TYPE, "lstForgeItemState", 294, 170, 82, 54 )
+UI_SetListRowHeight( lstForgeItemState, 18 )
+UI_SetListFontColor( lstForgeItemState, 4293591039, 4293591039 )
+UI_SetMargin( lstForgeItemState, 8,3,6,0 )
+UI_SetIsShow( lstForgeItemState, TRUE )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+
+btnForgeYes = CreateButton(4, frmNPCforge, "btnForgeYes", "FORGE", EXO_Regular_S16, 165, 42, 205, 223)
+btnMillingYes = CreateButton(4, frmNPCforge, "btnMillingYes", "SET SOCKET", EXO_Regular_S16, 165, 42, 205, 223)
+
+-----------------------------------------------------------------------
+-- 定义NPC打磨
+-----------------------------------------------------------------------	
+--- 创建NPC对话表单
+frmNPCshine = UI_CreateForm( "frmNPCshine", FALSE, 237, 217, 240, 70, TRUE, FALSE )
+UI_LoadFormImage( frmNPCshine, "./texture/gui/old_gui/forge4.tga", 237, 217, 0, 0, "", 0, 0 )
+UI_ShowForm( frmNPCshine, TRUE )
+UI_AddFormToTemplete( frmNPCshine, FORM_MAIN )
+--UI_FormSetHotKey( frmNPCshine, ALT_KEY, HOTKEY_X )
+UI_SetFormStyle( frmNPCshine, 2 )---左右居中
+UI_SetIsDrag( frmNPCshine, TRUE )
+--UI_SetAlpha( frmNPCshine, 200 )
+
+--title
+--labTitle = UI_CreateCompent( frmNPCforge, LABELEX_TYPE, "labTitle", 400, 150, 182, 4 )
+--UI_SetCaption( labTitle, "Item Forging")
+--UI_SetTextColor( labTitle, COLOR_BLACK )
+--UI_SetLabelExFont( labTitle, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建关闭按钮
+btnClose = UI_CreateCompent( frmNPCshine, BUTTON_TYPE, "btnClose", 14, 14, 216, 3 )
+UI_LoadButtonImage( btnClose, "./texture/gui/old_gui/PublicC.tga", 14, 14, 116, 175, TRUE )
+
+--打磨需求和结果程序用栏
+cmdShineItem = UI_CreateCompent( frmNPCshine, COMMAND_ONE_TYPE, "cmdShineItem", 32, 32, 16, 61 )	-- 结果
+
+--创建精练所需金币显示
+labShineGold = UI_CreateCompent( frmNPCshine, LABELEX_TYPE, "labShineGold", 110, 12, 68, 139 )
+UI_SetCaption( labShineGold, "" )
+UI_SetTextColor( labShineGold, COLOR_BLACK )
+UI_SetLabelExFont( labShineGold, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建打磨进度
+proNPCshine = UI_CreateCompent( frmNPCshine, PROGRESS_TYPE, "proNPCshine", 198, 8, 20, 170 )
+UI_LoadScaleImage( proNPCshine, "./texture/gui/old_gui/forge3.tga", PROGRESS_PROGRESS, 192, 8, 0, 56, 1.0, 1.0 )
+
+--创建物品属性显示
+memForgeItemState = UI_CreateCompent( frmNPCshine, MEMO_TYPE, "memForgeItemState", 152, 75, 67, 36 )
+UI_SetTextColor( memForgeItemState, COLOR_BLACK )
+UI_SetMemoMaxNumPerRow( memForgeItemState, 16 )
+UI_SetMemoRowHeight( memForgeItemState, 17 )
+
+lstForgeItemState = UI_CreateListView( frmConAsk, "lstForgeItemState", 152, 75, 67, 36, 1, 2 )
+UI_SetListRowHeight( lstForgeItemState, 17 )
+UI_SetListFontColor( lstForgeItemState, 4293591039, 4293591039 )
+UI_SetMargin( lstForgeItemState, 8,7,1,0 )
+UI_SetIsShow( lstForgeItemState, TRUE )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+UI_AddListText( lstForgeItemState, "" )
+
+
+--加载打磨，取消按钮
+btnShineYes = UI_CreateCompent( frmNPCshine, BUTTON_TYPE, "btnShineYes", 41, 19, 54, 190 )
+UI_LoadButtonImage( btnShineYes, "./texture/gui/old_gui/forge3.tga", 41, 19, 0, 63, TRUE )
+
+btnShineNo = UI_CreateCompent( frmNPCshine, BUTTON_TYPE, "btnShineNo", 41, 19, 146, 190 )
+UI_LoadButtonImage( btnShineNo, "./texture/gui/old_gui/PublicC.tga", 41, 19, 0, 20, TRUE )
+
+-----------------------------------------------------------------------
+-- Combine stone \ Upgrade equip
+-----------------------------------------------------------------------	
+frmMakeEquip = UI_CreateForm( "frmMakeEquip", FALSE, 285, 310, 240, 70, TRUE, FALSE )
+UI_ShowForm( frmMakeEquip, TRUE )
+UI_AddFormToTemplete( frmMakeEquip, FORM_MAIN )
+--UI_FormSetHotKey( frmMakeEquip, ALT_KEY, HOTKEY_V )
+UI_SetFormStyle( frmMakeEquip, 2 )---左右居中
+UI_SetIsDrag( frmMakeEquip, TRUE )
+
+setBackground(frmMakeEquip, true, 285, 310, 235)
+
+labFormname = UI_CreateCompent(frmMakeEquip, LABELEX_TYPE, "labFormname", 285, 14, 0, 20)
+UI_SetCaption( labFormname, "DIALOGUE" )
+UI_SetTextColor( labFormname, argbColor("ffffff"))
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+image = UI_CreateCompent(frmMakeEquip, IMAGE_TYPE, "image", 54, 54, 115, 50)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+image = UI_CreateCompent(frmMakeEquip, IMAGE_TYPE, "image", 54, 54, 30, 114)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+image = UI_CreateCompent(frmMakeEquip, IMAGE_TYPE, "image", 54, 54, 201, 114)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+image = UI_CreateCompent(frmMakeEquip, IMAGE_TYPE, "image", 225, 40, 30, 188)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 269, 40, 270, 1173)
+
+imgage = UI_CreateCompent(frmMakeEquip, IMAGE_TYPE, "imgage", 25, 25, 35, 195)
+UI_LoadImage(imgage, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 29, 29, 243, 326)
+
+-- Scroll
+cmdRouLeau = UI_CreateCompent( frmMakeEquip, COMMAND_ONE_TYPE, "cmdRouLeau", 32, 32, 115 + 11, 50 + 11)
+UI_SetHint( cmdRouLeau, "Scroll" )
+
+-- Ingredient 1
+cmdItem0 = UI_CreateCompent( frmMakeEquip, COMMAND_ONE_TYPE, "cmdItem0", 32, 32, 30 + 11, 114 + 11 )
+UI_SetHint( cmdItem0, "Ingredient 1" )
+
+cmdItem1 = UI_CreateCompent( frmMakeEquip, COMMAND_ONE_TYPE, "cmdItem1", 32, 32, 201 + 11, 114 + 11 )
+UI_SetHint( cmdItem1, "Ingredient 2" )
+
+cmdItem2 = UI_CreateCompent( frmMakeEquip, COMMAND_ONE_TYPE, "cmdItem2", 32, 32, -500, 207 )	-- 原料3
+cmdItem3 = UI_CreateCompent( frmMakeEquip, COMMAND_ONE_TYPE, "cmdItem3", 32, 32, -500, 207 )	-- 原料4
+
+cmdLastEquip = UI_CreateCompent( frmMakeEquip, COMMAND_ONE_TYPE, "cmdLastEquip", 32, 32, -500, 142 )	-- 结果
+UI_SetHint( cmdLastEquip, "Combine item" )
+
+labForgeGold = UI_CreateCompent( frmMakeEquip, LABELEX_TYPE, "labForgeGold", 112, 12, 65, 201 )
+UI_SetCaption( labForgeGold, "0" )
+UI_SetTextColor( labForgeGold, argbColor("a3a3a3"))
+UI_SetLabelExFont( labForgeGold, EXO_Regular_S14, FALSE, COLOR_WHITE )
+
+btnForgeYes = CreateButton(4, frmMakeEquip, "btnForgeYes", "CONFIRM", EXO_Regular_S16, 165, 42, 60, 248)
+
+-----------------------------------------------------------------------
+-- Join to pirate guild
+-----------------------------------------------------------------------	
+frmConAsk = UI_CreateForm( "frmConAsk", FALSE, 528, 444 + 51, 0, 0, TRUE, FALSE )
+UI_ShowForm( frmConAsk, TRUE )
+UI_AddFormToTemplete( frmConAsk, FORM_MAIN )
+UI_SetIsDrag( frmConAsk, FALSE )
+UI_SetFormStyle( frmConAsk, 2 )
+UI_SetAlpha( frmConAsk, 255 )
+UI_SetFormStyleEx(frmConAsk, FORM_CENTERBOTTOM, 0, 160)
+
+setBackground(frmConAsk, true, 528, 444 + 51, 225)
+setBackground2(frmConAsk, 468, 386 - 50, 100, 30, 70)
+
+labFormname = UI_CreateCompent(frmConAsk, LABELEX_TYPE, "labFormname", 528, 14, 0, 20)
+UI_SetCaption( labFormname, "GUILDS" )
+UI_SetTextColor( labFormname, argbColor("ffffff"))
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+labTitle1 = UI_CreateCompent(frmConAsk, LABELEX_TYPE, "labTitle1", 528, 14, 52, 80)
+UI_SetCaption( labTitle1, "Guild name" )
+UI_SetTextColor( labTitle1, argbColor("ffffff"))
+UI_SetLabelExFont( labTitle1, EXO_Regular_S13, FALSE, COLOR_BLACK )
+
+labTitle2 = UI_CreateCompent(frmConAsk, LABELEX_TYPE, "labTitle2", 528, 14, 352, 80)
+UI_SetCaption( labTitle2, "Leader" )
+UI_SetTextColor( labTitle2, argbColor("ffffff"))
+UI_SetLabelExFont( labTitle2, EXO_Regular_S13, FALSE, COLOR_BLACK )
+
+-- Сортировка по кол-ву участников
+btnNum = UI_CreateCompent( frmConAsk, BUTTON_TYPE, "btnNum", 67, 14, 240, 81 )
+UI_LoadImage( btnNum, "./texture/ascaron_ui/asc-part-02.png", 0, 67, 14, 608, 878)
+UI_LoadImage( btnNum, "./texture/ascaron_ui/asc-part-02.png", 1, 67, 14, 608, 878)
+UI_LoadImage( btnNum, "./texture/ascaron_ui/asc-part-02.png", 2, 67, 14, 608, 878)
+
+lstAsk = UI_CreateListView( frmConAsk, "lstAsk", 464, 323 - 27, 32, 100, 3, eNoTitle)
+UI_ListViewSetTitle( lstAsk, 0, 210, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstAsk, 1, 90, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstAsk, 2, 100, "", 0, 0, 0, 0 )
+UI_ListSetItemMargin(lstAsk, 15, 5 )						-- Перемещение текста внутри строки
+--UI_SetListRowHeight(lstAsk, 46 )							-- Отступ строк между собой
+UI_ListLoadSelectImage(lstAsk, "./texture/ascaron_ui/asc-part-03.png", 468, 30, 330, 84)
+UI_SetListIsMouseFollow(lstAsk, FALSE)
+UI_SetListRowHeight( lstAsk, 26 )
+setScroll(lstAsk)
+
+btnApply = CreateButton(4, frmConAsk, "btnApply", "APPLY", EXO_Regular_S16, 165, 42, 333, 382 + 51)
+
+btnNo = CreateButton(5, frmConAsk, "btnNo", "CANCEL", EXO_Regular_S16, 165, 42, 158, 382 + 51)
+UI_SetButtonModalResult( btnNo, BUTTON_NO )
+
+-----------------------------------------------------------------------
+-- 定义输入公会密码对话框
+-----------------------------------------------------------------------
+frmCode = UI_CreateForm( "frmCode",  FALSE, 185, 101, 397, 500, FALSE, FALSE )
+UI_LoadFormImage( frmCode, "./texture/gui/old_gui/sure.dds", 185, 101, 0, 0, "", 0, 0 )
+UI_ShowForm( frmCode, FALSE )
+UI_AddFormToTemplete( frmCode, FORM_MAIN )
+--UI_FormSetHotKey( frmCode, ALT_KEY, HOTKEY_V ) 
+UI_SetFormStyle( frmCode, 0 )
+UI_SetIsDrag( frmCode, TRUE )
+
+-- 加载界面title
+labTitle = UI_CreateCompent( frmCode, LABELEX_TYPE, "labTitle", 400, 150, 10, 3 )
+UI_SetCaption( labTitle, "Input password")
+UI_SetTextColor( labTitle, COLOR_BLACK )
+UI_SetLabelExFont( labTitle, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建输入密码
+labInfo = UI_CreateCompent( frmCode, LABELEX_TYPE, "labInfo", 23, 11, 50, 30 )
+UI_SetCaption( labInfo, "Please input password" )
+UI_SetTextColor( labInfo, COLOR_BLACK )
+UI_SetLabelExFont( labInfo, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+-- 加载输入区背景
+imgNumber = UI_CreateCompent( frmCode, IMAGE_TYPE, "imgNumber", 87, 18, 50, 50 )
+UI_LoadImage( imgNumber, "./texture/gui/old_gui/PublicC.tga", NORMAL, 87, 18, 99, 235 )
+
+--加载密码输入框
+edtCode = UI_CreateCompent( frmCode, EDIT_TYPE, "edtCode", 71, 11, 58, 54 )
+UI_SetTextColor( edtCode, COLOR_BLACK )
+UI_SetEditMaxNum( edtCode, 8 )
+UI_SetEditMaxNumVisible( edtID, 8 )
+
+--加载确定按钮
+btnYes = UI_CreateCompent( frmCode, BUTTON_TYPE, "btnYes", 41, 19, 74, 78 )
+UI_LoadButtonImage( btnYes, "./texture/gui/old_gui/PublicC.tga", 41, 19, 0, 0, TRUE )
+UI_SetButtonModalResult( btnYes, BUTTON_YES )
+UI_SetEditEnterButton( edtNumber, btnYes )
+
+--加载取消按钮
+btnNo = UI_CreateCompent( frmCode, BUTTON_TYPE, "btnNo", 41, 19, 122, 78 )
+UI_LoadButtonImage( btnNo, "./texture/gui/old_gui/PublicC.tga", 41, 19, 0, 20, TRUE )
+UI_SetButtonModalResult( btnNo, BUTTON_NO )
+
+-----------------------------------------------------------------------
+-- Create pirate guild
+-----------------------------------------------------------------------
+frmName = UI_CreateForm("frmName",  FALSE, 400, 312, 397, 500, FALSE, FALSE)
+UI_ShowForm(frmName, FALSE)
+UI_AddFormToTemplete(frmName, FORM_MAIN)
+UI_SetFormStyle(frmName, 0)
+UI_SetIsDrag(frmName, FALSE)
+UI_SetFormStyleEx(frmName, FORM_CENTERBOTTOM, 0, 160)
+
+-- background
+setBackground(frmName, false, 400, 312, 255)
+
+labFormname = UI_CreateCompent(frmName, LABELEX_TYPE, "labFormname", 400 - 15, 20, 15, 30)
+UI_SetCaption( labFormname, "CREATE GUILD" )
+UI_SetTextColor( labFormname, argbColor("ffffff"))
+UI_SetLabelExFont( labFormname, EXO_Regular_S20, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+image = UI_CreateCompent(frmName, IMAGE_TYPE,"image", 21, 22, 126 - 20, 30)
+UI_LoadImage( image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 21, 22, 755, 197)
+
+image = UI_CreateCompent(frmName, IMAGE_TYPE,"image", 340, 42, 30, 74)
+UI_LoadImage( image, "./texture/ascaron_ui/asc-part-03.png", NORMAL, 340, 42, 330, 0)
+
+image = UI_CreateCompent(frmName, IMAGE_TYPE,"image", 340, 42, 30, 136)
+UI_LoadImage( image, "./texture/ascaron_ui/asc-part-03.png", NORMAL, 340, 42, 330, 0)
+
+image = UI_CreateCompent(frmName, IMAGE_TYPE,"image", 340, 42, 30, 188)
+UI_LoadImage( image, "./texture/ascaron_ui/asc-part-03.png", NORMAL, 340, 42, 330, 0)
+
+edtName = UI_CreateCompent( frmName, EDIT_TYPE, "edtName", 420, 20, 40, 74  + 12)
+UI_SetTextColor( edtName, argbColor("c0c0c0") )
+UI_SetEditMaxNum( edtName, 16 )
+UI_SetEditMaxNumVisible( edtName, 16 )
+UI_SetEditCursorColor( edtName, argbColor("c0c0c0") )
+UI_SetEditFont( edtName, EXO_Regular_S16 )
+UI_SetEditClue(edtName, "Enter guild name*", argbColor("908a92"))
+
+edtPCode = UI_CreateCompent( frmName, EDIT_TYPE, "edtPCode", 420, 20, 40, 136 + 12)
+UI_SetTextColor( edtPCode, argbColor("c0c0c0") )
+UI_SetEditMaxNum( edtPCode, 8 )
+UI_SetEditMaxNumVisible( edtPCode, 8 )
+UI_SetEditCursorColor( edtPCode, argbColor("c0c0c0") )
+UI_SetEditFont( edtPCode, EXO_Regular_S16 )
+UI_SetEditClue(edtPCode, "Enter password-guild", argbColor("908a92"))
+
+edtPCode2 = UI_CreateCompent( frmName, EDIT_TYPE, "edtPCode2", 420, 20, 40, 188 + 12)
+UI_SetTextColor( edtPCode2, argbColor("c0c0c0") )
+UI_SetEditMaxNum( edtPCode2, 8 )
+UI_SetEditMaxNumVisible( edtPCode2, 8 )
+UI_SetEditCursorColor( edtPCode2, argbColor("c0c0c0") )
+UI_SetEditFont( edtPCode2, EXO_Regular_S16 )
+UI_SetEditClue(edtPCode2, "Re-enter password-guild", argbColor("908a92"))
+
+-- botton "ok"
+btnYes = CreateButton(4, frmName, "btnYes", "CREATE GUILD", EXO_Regular_S16, 165, 42, 205, 250)
+UI_SetButtonModalResult( btnYes, BUTTON_YES )
+UI_SetEditEnterButton( edtNumber, btnYes )
+
+--botton "cancel"
+btnNo = CreateButton(5, frmName, "btnNo", "CANCEL", EXO_Regular_S16, 165, 42, 30, 250)
+UI_SetButtonModalResult( btnNo, BUTTON_NO )
+
+
+-----------------------------------------------------------------------
+-- 定义NPC公会挑战
+-----------------------------------------------------------------------	
+--- 创建NPC对话表单
+frmGuildPK = UI_CreateForm( "frmGuildPK", FALSE, 558, 387, 240, 70, TRUE, FALSE )
+UI_ShowForm( frmGuildPK, TRUE )
+UI_AddFormToTemplete( frmGuildPK, FORM_MAIN )
+--UI_FormSetHotKey( frmGuildPK, ALT_KEY, HOTKEY_V )
+UI_SetFormStyle( frmGuildPK, 2 )---左右居中
+UI_SetIsDrag( frmGuildPK, TRUE )
+
+-- 加载背景图片
+imgBakLeft = UI_CreateCompent( frmGuildPK, IMAGE_TYPE, "imgBakLeft", 256, 256, 0, 0 )
+UI_LoadImage( imgBakLeft, "./texture/gui/old_gui/GuildPK1.tga", NORMAL, 256, 256, 0, 0 )
+
+imgBakMidle = UI_CreateCompent( frmGuildPK, IMAGE_TYPE, "imgBakMidle", 256, 256, 256, 0 )
+UI_LoadImage( imgBakMidle, "./texture/gui/old_gui/GuildPK2.tga", NORMAL, 256, 256, 0, 0 )
+
+imgBakRight = UI_CreateCompent( frmGuildPK, IMAGE_TYPE, "imgBakRight", 46, 256, 512, 0 )
+UI_LoadImage( imgBakRight, "./texture/gui/old_gui/GuildPK3.tga", NORMAL, 46, 256, 0, 0 )
+
+imgBakLeftD = UI_CreateCompent( frmGuildPK, IMAGE_TYPE, "imgBakLeftD", 256, 131, 0, 256 )
+UI_LoadImage( imgBakLeftD, "./texture/gui/old_gui/GuildPK4.tga", NORMAL, 256, 131, 0, 0 )
+
+imgBakMidleD = UI_CreateCompent( frmGuildPK, IMAGE_TYPE, "imgBakMidleD", 256, 131, 256, 256 )
+UI_LoadImage( imgBakMidleD, "./texture/gui/old_gui/GuildPK5.tga", NORMAL, 256, 131, 0, 0 )
+
+imgBakRightD = UI_CreateCompent( frmGuildPK, IMAGE_TYPE, "imgBakRightD", 46, 131, 512, 256 )
+UI_LoadImage( imgBakRightD, "./texture/gui/old_gui/GuildPK6.tga", NORMAL, 46, 131, 0, 0 )
+
+--title
+labTitle = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labTitle", 60, 14, 208, 4 )
+UI_SetCaption( labTitle, "Guild Ranking Board")
+UI_SetTextColor( labTitle, COLOR_BLACK )
+UI_SetLabelExFont( labTitle, EXO_Regular_S12, TRUE, COLOR_WHITE )
+--title
+
+--创建关闭按钮
+btnClose = UI_CreateCompent( frmGuildPK, BUTTON_TYPE, "btnClose", 14, 14, 537, 3 )
+UI_LoadButtonImage( btnClose, "./texture/gui/old_gui/PublicC.tga", 14, 14, 116, 175, TRUE )
+UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
+
+--创建擂主
+labGuildName0 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labGuildName0", 108, 11, 40, 124 )
+UI_SetCaption( labGuildName0, "" )
+UI_SetTextColor( labGuildName0, COLOR_BLACK )
+UI_SetLabelExFont( labGuildName0, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+labGuildName1 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labGuildName1", 108, 11, 40, 171 )
+UI_SetCaption( labGuildName1, "" )
+UI_SetTextColor( labGuildName1, COLOR_BLACK )
+UI_SetLabelExFont( labGuildName1, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+labGuildName2 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labGuildName2", 108, 11, 40, 216 )
+UI_SetCaption( labGuildName2, "" )
+UI_SetTextColor( labGuildName2, COLOR_BLACK )
+UI_SetLabelExFont( labGuildName2, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建挑战者
+labChallenger0 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labChallenger0", 108, 11, 194, 124 )
+UI_SetCaption( labChallenger0, "" )
+UI_SetTextColor( labChallenger0, COLOR_BLACK )
+UI_SetLabelExFont( labChallenger0, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+labChallenger1 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labChallenger1", 108, 11, 194, 171 )
+UI_SetCaption( labChallenger1, "" )
+UI_SetTextColor( labChallenger1, COLOR_BLACK )
+UI_SetLabelExFont( labChallenger1, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+labChallenger2 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labChallenger2", 108, 11, 194, 216 )
+UI_SetCaption( labChallenger2, "" )
+UI_SetTextColor( labChallenger2, COLOR_BLACK )
+UI_SetLabelExFont( labChallenger2, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--创建竞标
+labMoney0 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labMoney0", 92, 11, 376, 124 )
+UI_SetCaption( labMoney0, "" )
+UI_SetTextColor( labMoney0, COLOR_BLACK )
+UI_SetLabelExFont( labMoney0, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+labMoney1 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labMoney1", 92, 11, 376, 171 )
+UI_SetCaption( labMoney1, "" )
+UI_SetTextColor( labMoney1, COLOR_BLACK )
+UI_SetLabelExFont( labMoney1, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+labMoney2 = UI_CreateCompent( frmGuildPK, LABELEX_TYPE, "labMoney2", 92, 11, 376, 216 )
+UI_SetCaption( labMoney2, "" )
+UI_SetTextColor( labMoney2, COLOR_BLACK )
+UI_SetLabelExFont( labMoney2, EXO_Regular_S12, TRUE, COLOR_WHITE )
+
+--加载竞价按钮
+btnCharge0 = UI_CreateCompent( frmGuildPK, BUTTON_TYPE, "btnCharge0", 41, 19, 497, 120 )
+UI_LoadButtonImage( btnCharge0, "./texture/gui/old_gui/forge3.tga", 41, 19, 0, 82, TRUE )
+UI_SetButtonModalResult( btnCharge0, BUTTON_YES )
+
+btnCharge1 = UI_CreateCompent( frmGuildPK, BUTTON_TYPE, "btnCharge1", 41, 19, 497, 167 )
+UI_LoadButtonImage( btnCharge1, "./texture/gui/old_gui/forge3.tga", 41, 19, 0, 82, TRUE )
+UI_SetButtonModalResult( btnCharge1, BUTTON_YES )
+
+btnCharge2 = UI_CreateCompent( frmGuildPK, BUTTON_TYPE, "btnCharge2", 41, 19, 497, 212 )
+UI_LoadButtonImage( btnCharge2, "./texture/gui/old_gui/forge3.tga", 41, 19, 0, 82, TRUE )
+UI_SetButtonModalResult( btnCharge2, BUTTON_YES )
+
+
+
+--加载显示区
+lstGuildPK = UI_CreateCompent( frmGuildPK, LIST_TYPE, "lstGuildPK", 527, 76, 14, 289 )
+UI_SetListRowHeight( lstGuildPK, 13 )
+UI_SetListFontColor( lstGuildPK, COLOR_BLACK, COLOR_BLACK )
+UI_SetMargin( lstGuildPK, 12,12,12,12 )
+UI_SetIsShow( lstGuildPK, TRUE )
+UI_AddListText( lstGuildPK, "1st place challenge: Every Sunday at 0001 GMT+8. Bids will end at Saturday 0001 GMT+8" )
+UI_AddListText( lstGuildPK, "http://top.igg.com/guild/guild_wars.html" )
+UI_AddListText( lstGuildPK, "3rd place challenge: Every Sunday 1201 GMT+8. Bids will end at Saturday 1201 GMT+8" )
+UI_AddListText( lstGuildPK, "Note: After each match ended, a new round will begin. Please check out the official website for details." )
+
+
+

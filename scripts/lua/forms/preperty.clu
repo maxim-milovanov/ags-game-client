@@ -1,0 +1,213 @@
+-----------------------------------------------------------------------
+-- Character
+-----------------------------------------------------------------------
+frmState = UI_CreateForm("frmState", FALSE, 600, 550, 150, 200, TRUE, FALSE )
+UI_FormSetHotKey( frmState, ALT_KEY, HOTKEY_A )
+UI_ShowForm( frmState, TRUE )
+UI_AddFormToTemplete( frmState, 1 )
+UI_SetIsDrag( frmState, TRUE )
+UI_SetFormStyle( frmState, 0 )
+
+setBackground(frmState, true, 650, 550, 225)
+
+labFormname = UI_CreateCompent(frmState, LABELEX_TYPE, "labFormname", 600, 14, 0, 20)
+UI_SetCaption( labFormname, "CHARACTER INFO" )
+UI_SetTextColor( labFormname, COLOR_WHITE )
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+image = UI_CreateCompent(frmState, IMAGE_TYPE, "image", 550, 2, 50, 50+29)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 550, 2, 0, 381)
+
+pgePublic = UI_CreateCompent(frmState, PAGE_TYPE, "pgePublic", 600, 420, 50, 50 )
+UI_SetPageButton(pgePublic, PAGE_BUTTON_CUSTOM, 48, 16 )
+
+skillid = UI_CreatePageItem(pgePublic)
+ttlNum = UI_GetPageItemObj( skillid, PAGE_ITEM_TITLE )
+UI_LoadImage( ttlNum, "./texture/ascaron_ui/asc-part-01.png", PAGE_ITEM_TITLE_NORMAL, 123, 31, 546, 225)
+UI_LoadImage( ttlNum, "./texture/ascaron_ui/asc-part-01.png", PAGE_ITEM_TITLE_ACTIVE, 123, 31, 423, 225)
+UI_SetPos( ttlNum, 0, 0)
+UI_SetSize( ttlNum, 123, 31)
+
+ui3dCha = UI_CreateCompent( frmState, UI3D_COMPENT, "ui3dCha", 160, 150, 80, 250)
+UI_AddCompent(skillid, ui3dCha)
+
+labName = UI_CreateCompent( frmState, LABELEX_TYPE, "labName", 242, 11, 40, 55)
+UI_SetTextColor(labName, argbColor("b9baba"))
+UI_SetLabelExFont(labName, EXO_Regular_S20, FALSE, COLOR_WHITE)
+UI_SetCaptionIsCenter(labName, TRUE)
+UI_AddCompent(skillid, labName)
+
+labJob = UI_CreateCompent( frmState, LABELEX_TYPE, "labJob", 242, 11, 40, 85)
+UI_SetTextColor(labJob, argbColor("b9baba"))
+UI_SetLabelExFont(labJob, EXO_Regular_S16, FALSE, COLOR_WHITE)
+UI_SetCaptionIsCenter(labName, TRUE)
+UI_AddCompent(skillid, labJob)
+
+labGuild = UI_CreateCompent( frmState, LABELEX_TYPE, "labGuild", 242, 11, 40, 110)
+UI_SetTextColor( labGuild, argbColor("b9baba") )
+UI_SetLabelExFont( labGuild, EXO_Regular_S16, FALSE, COLOR_WHITE )
+UI_SetCaptionIsCenter(labName, TRUE)
+UI_AddCompent(skillid, labGuild)
+
+labChaHP = UI_CreateCompent( frmState, LABELEX_TYPE, "labChaHP", 242, 11, 40, 355)
+UI_SetTextColor(labChaHP, argbColor("b9baba"))
+UI_SetLabelExFont(labChaHP, EXO_Regular_S14, FALSE, COLOR_WHITE)
+UI_SetCaptionIsCenter(labChaHP, TRUE)
+UI_AddCompent(skillid, labChaHP)
+
+labChaSP = UI_CreateCompent( frmState, LABELEX_TYPE, "labChaSP", 242, 11, 40, 375)
+UI_SetTextColor(labChaSP, argbColor("b9baba"))
+UI_SetLabelExFont(labChaSP, EXO_Regular_S14, FALSE, COLOR_WHITE)
+UI_SetCaptionIsCenter(labChaSP, TRUE)
+UI_AddCompent(skillid, labChaSP)
+
+------
+-- Базовые характеристики персонажа
+------
+basestatgroup = {x = 350, y = 50}
+rowHeight = 29  -- расстояние между строками
+
+-- Статпоинты
+lab_Spoint = UI_CreateCompent(frmState, LABELEX_TYPE, "lab_Spoint", 30, 14, basestatgroup.x + 15, basestatgroup.y)
+UI_SetCaption(lab_Spoint, "Stat points")
+UI_SetTextColor(lab_Spoint, argbColor("919191") )
+UI_SetLabelExFont(lab_Spoint, EXO_Regular_S12, FALSE, COLOR_WHITE )
+UI_AddCompent(skillid, lab_Spoint)
+
+labSpoint = UI_CreateCompent(frmState, LABELEX_TYPE, "labSpoint", 30, 14, basestatgroup.x + 150, basestatgroup.y)
+UI_SetCaption(labSpoint, "0")
+UI_SetTextColor(labSpoint, argbColor("d6d6d6") )
+UI_SetLabelExFont(labSpoint, EXO_Regular_S12, FALSE, COLOR_WHITE )
+UI_AddCompent(skillid, labSpoint)
+
+-- Добавляем строки
+AddStatRow(0, "Strength", "Strength increases Melee attack power", "Strength", "btnStr")
+AddStatRow(1, "Constitution", "Constitution increases Defense, Max HP and HP recovery rate", "Constitution", "btnCon")
+AddStatRow(2, "Agility", "Agility increases Attack speed and Dodge rate", "Agility", "btnAgi")
+AddStatRow(3, "Accuracy", "Accuracy increases Range attack power and Hit Rate", "Accuracy", "btnDex")
+AddStatRow(4, "Spirit", "Spirit increases Max SP and SP recovery rate", "Spirit", "btnSta")
+
+
+------
+-- Характеристики персонажа
+------
+statsGroup = {x = basestatgroup.x + 15, y = basestatgroup.y + 181} -- стартовые координаты блока
+rowHeight = 23  -- расстояние между строками
+
+-- добавляем все строки
+AddCharStat(0, "Attack", "Attack")
+AddCharStat(1, "Attack speed", "Aspd")
+AddCharStat(2, "Defense", "Defense")
+AddCharStat(3, "Physical Resist", "Presist")
+AddCharStat(4, "Hit Rate", "HitRate")
+AddCharStat(5, "Dodge", "Dodge")
+AddCharStat(6, "Movement speed", "Movement")
+AddCharStat(7, "Critical Rate", "CriticalRate")
+AddCharStat(8, "HP Recovery", "HPRecovery")
+AddCharStat(9, "SP Recovery", "SPRecovery")
+
+------
+-- Слоты под эквип
+------
+local collum = {}
+collum.left = { x = 0, y = 60, margin = 55 }
+collum.right = { x = collum.left.x + 280, y = collum.left.y, margin = collum.left.margin }
+
+-- универсальная функция для создания слота
+local function createSlot(name, hint, col, row, offsetX, offsetY)
+    offsetX = offsetX or 0
+    offsetY = offsetY or 0
+
+    local imgX = col.x + offsetX
+    local imgY = col.y + (col.margin * row) + offsetY
+    local cmdX = imgX + 3
+    local cmdY = imgY + 3
+
+    local img = UI_CreateCompent(frmState, IMAGE_TYPE, "cmdImg" .. name, 38, 38, imgX, imgY)
+    UI_LoadImage(img, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 55, 55, 52, 49)
+
+    local cmd = UI_CreateCompent(frmState, COMMAND_ONE_TYPE, "cmd" .. name, 32, 32, cmdX, cmdY)
+    UI_SetHint(cmd, hint)
+
+    UI_AddCompent(skillid, img)
+    UI_AddCompent(skillid, cmd)
+
+    return img, cmd
+end
+
+-- список слотов
+local slots = {
+    { "Head",       "Head",          collum.left, 0 },
+    { "Body",       "Body",          collum.left, 1 },
+    { "Glove",      "Glove",         collum.left, 2 },
+    { "Shoes",      "Boots",         collum.left, 3 },
+    { "LeftHand",   "Left hand",     collum.left, 4 },
+    { "RightHand",  "Right hand",    collum.left, 5 },
+    { "Cloak",      "Cloak",         collum.left, 6 },
+
+    { "Necklace",   "Necklace",      collum.right, 0 },
+    { "LRing",      "Left ring",     collum.right, 1 },
+    { "RRing",      "Right ring",    collum.right, 2 },
+    { "LBracelet",  "Left bracelet", collum.right, 3 },
+    { "RBracelet",  "Right bracelet",collum.right, 4 },
+    { "Belt",       "Belt",          collum.right, 5 },
+    { "Handguard",  "Handguard",     collum.right, 6 },
+}
+
+-- создаём все обычные слоты
+for _, s in ipairs(slots) do
+    createSlot(s[1], s[2], s[3], s[4])
+end
+
+-- особые слоты с нестандартным смещением
+createSlot("Pet", "Fairy", collum.left, 6, collum.left.margin * 1.63, collum.left.margin / 2.5)
+createSlot("RearPet", "Hand pet", collum.left, 6, collum.left.margin * 2 * 1.27, collum.left.margin / 2.5)
+createSlot("Mount", "Mount", collum.right, 6, -(collum.right.margin * 1.63), collum.right.margin / 2.5)
+
+
+------
+--[[ Journal
+------
+skillid = UI_CreatePageItem(pgePublic)
+ttlNum = UI_GetPageItemObj( skillid, PAGE_ITEM_TITLE)
+UI_LoadImage( ttlNum, "texture/gui/p0w-frmState.png", PAGE_ITEM_TITLE_NORMAL, 129, 46, 119, 690)
+UI_LoadImage( ttlNum, "texture/gui/p0w-frmState.png", PAGE_ITEM_TITLE_ACTIVE, 129, 46, 119, 736)
+UI_SetPos( ttlNum, 60 + 130, 1)
+UI_SetSize( ttlNum, 129, 46)
+
+trvJournal = UI_CreateCompent( frmState, TREE_TYPE, "trvJournal", 210, 400, 30, 80 )
+UI_SetIsDrag( trvEditor, TRUE )
+UI_TreeLoadImage( trvJournal, enumTreeAddImage, "./texture/gui/old_gui/SystemBotton3.tga", 16, 16, 205, 120, 12, 12 )
+UI_TreeLoadImage( trvJournal, enumTreeSubImage, "./texture/gui/old_gui/SystemBotton3.tga", 16, 16, 222, 120, 12, 12 )
+
+scrollid = UI_GetScroll( trvJournal)
+UI_SetSize( scrollid, 11, 1 )
+UI_LoadImage( scrollid, "texture/gui/skill-panel.png", COMPENT_BACK, 11, 1, 230, 80 )
+
+id = UI_GetScrollObj( scrollid, SCROLL_SCROLL )
+UI_LoadImage( id, "texture/gui/skill-panel.png", COMPENT_BACK, 13, 43, 243, 79 )
+UI_SetSize( id, 13, 43 )
+
+UI_AddCompent(skillid, trvJournal)
+------
+-- Medal
+------
+skillid = UI_CreatePageItem(pgePublic)
+ttlNum = UI_GetPageItemObj( skillid, PAGE_ITEM_TITLE )
+UI_LoadImage( ttlNum, "texture/gui/p0w-frmState.png", PAGE_ITEM_TITLE_NORMAL, 129, 46, 239, 690)
+UI_LoadImage( ttlNum, "texture/gui/p0w-frmState.png", PAGE_ITEM_TITLE_ACTIVE, 129, 46, 239, 736)
+UI_SetPos( ttlNum, 60 + 130 + 130, 1)
+UI_SetSize( ttlNum, 129, 46)
+
+------
+-- Titles
+------
+skillid = UI_CreatePageItem(pgePublic)
+ttlNum = UI_GetPageItemObj( skillid, PAGE_ITEM_TITLE )
+UI_LoadImage( ttlNum, "texture/gui/p0w-frmState.png", PAGE_ITEM_TITLE_NORMAL, 129, 46, 359, 690)
+UI_LoadImage( ttlNum, "texture/gui/p0w-frmState.png", PAGE_ITEM_TITLE_ACTIVE, 129, 46, 359, 736)
+UI_SetPos( ttlNum, 60 + 130 + 130 + 130, 1)
+UI_SetSize( ttlNum, 129, 46)
+
+]]

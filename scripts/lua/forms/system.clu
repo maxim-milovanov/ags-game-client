@@ -1,0 +1,192 @@
+-----------------------------------------------------------------------
+-- Rating
+-----------------------------------------------------------------------	
+frmRanking = UI_CreateForm( "frmRanking", FALSE, 897, 569, 100, 200, TRUE, FALSE )
+UI_ShowForm( frmRanking, FALSE )
+UI_SetIsDrag( frmRanking, FALSE )
+UI_SetBackground(frmRanking)
+--UI_SetAlpha(imgBlackBackground, 150)
+
+imgBackGround = UI_CreateCompent( frmRanking, IMAGE_TYPE, "imgBackGround", 897, 569, 0, 0 )
+UI_LoadImage( imgBackGround, "./texture/gui/rating.png", NORMAL, 897, 569, 0, 0 )
+
+btnClose = UI_CreateCompent( frmRanking, BUTTON_TYPE, "btnClose", 32, 32, 727, 50 )
+UI_LoadButtonImage( btnClose, "./texture/gui/Inventory.png", 32, 32, 0, 368, TRUE )
+UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
+
+pgePublic = UI_CreateCompent( frmRanking, PAGE_TYPE, "pgePublic", 185, 275, 0, 0 )
+UI_SetPageButton( pgePublic, PAGE_BUTTON_CUSTOM, 48, 16 )
+
+------
+rating_kda = UI_CreatePageItem( pgePublic )
+--ttlKda = UI_GetPageItemObj( rating_kda, PAGE_ITEM_TITLE )
+--UI_LoadImage( ttlKda, "./texture/gui/rating.png", PAGE_ITEM_TITLE_NORMAL, 116, 29, 16, 619 )
+--UI_LoadImage( ttlKda, "./texture/gui/rating.png", PAGE_ITEM_TITLE_ACTIVE, 116, 29, 17, 582 )
+--UI_SetPos( ttlKda, 261, 127 )
+--UI_SetSize( ttlKda, 116, 29 )
+UI_AddCompent( rating_kda, lstKda )
+
+lstKda = UI_CreateListView( frmRanking, "lstKda", 600, 360, 152, 169, 6, 2 )
+UI_ListViewSetTitle( lstKda, 0, 50, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstKda, 1, 135, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstKda, 2, 67, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstKda, 3, 70, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstKda, 4, 85, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstKda, 5, 10, "", 0, 0, 0, 0 )
+
+scrollid = UI_GetScroll( lstKda)
+UI_SetSize( scrollid, 11, 1 )
+UI_LoadImage( scrollid, "./texture/gui/skill-panel.png", COMPENT_BACK, 11, 1, 230, 80 )
+
+id = UI_GetScrollObj( scrollid, SCROLL_SCROLL )
+UI_LoadImage( id, "./texture/gui/skill-panel.png", COMPENT_BACK, 13, 43, 243, 79 )
+UI_SetSize( id, 13, 43 )
+------
+
+rating_equipment = UI_CreatePageItem( pgePublic )
+ttlEquipment = UI_GetPageItemObj( rating_equipment, PAGE_ITEM_TITLE )
+UI_LoadImage( ttlEquipment, "./texture/gui/rating.png", PAGE_ITEM_TITLE_NORMAL, 116, 29, 143, 619 )
+UI_LoadImage( ttlEquipment, "./texture/gui/rating.png", PAGE_ITEM_TITLE_ACTIVE, 116, 29, 144, 582 )
+UI_SetPos( ttlEquipment, 390, 127 )
+UI_SetSize( ttlEquipment, 116, 29 )
+UI_AddCompent( rating_equipment, lstEquipment )
+
+lstEquipment = UI_CreateListView( frmRanking, "lstEquipment", 600, 360, 250, 169, 3, 2 )
+UI_ListViewSetTitle( lstEquipment, 0, 50, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstEquipment, 1, 180, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstEquipment, 2, 100, "", 0, 0, 0, 0 )
+
+scrollid = UI_GetScroll( lstEquipment)
+UI_SetSize( scrollid, 11, 1 )
+UI_LoadImage( scrollid, "./texture/gui/skill-panel.png", COMPENT_BACK, 11, 1, 230, 80 )
+
+id = UI_GetScrollObj( scrollid, SCROLL_SCROLL )
+UI_LoadImage( id, "./texture/gui/skill-panel.png", COMPENT_BACK, 13, 43, 243, 79 )
+UI_SetSize( id, 13, 43 )
+------
+
+rating_exp = UI_CreatePageItem( pgePublic )
+ttlExp = UI_GetPageItemObj( rating_exp, PAGE_ITEM_TITLE )
+UI_LoadImage( ttlExp, "./texture/gui/rating.png", PAGE_ITEM_TITLE_NORMAL, 116, 29, 262, 619 )
+UI_LoadImage( ttlExp, "./texture/gui/rating.png", PAGE_ITEM_TITLE_ACTIVE, 116, 29, 263, 582 )
+UI_SetPos( ttlExp, 518, 127 )
+UI_SetSize( ttlExp, 116, 29 )
+UI_AddCompent( rating_exp, lstExp )
+
+lstExp = UI_CreateListView( frmRanking, "lstExp", 600, 360, 250, 169, 3, 2 )
+UI_ListViewSetTitle( lstExp, 0, 50, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstExp, 1, 180, "", 0, 0, 0, 0 )
+UI_ListViewSetTitle( lstExp, 2, 100, "", 0, 0, 0, 0 )
+
+scrollid = UI_GetScroll( lstExp)
+UI_SetSize( scrollid, 11, 1 )
+UI_LoadImage( scrollid, "./texture/gui/skill-panel.png", COMPENT_BACK, 11, 1, 230, 80 )
+
+id = UI_GetScrollObj( scrollid, SCROLL_SCROLL )
+UI_LoadImage( id, "./texture/gui/skill-panel.png", COMPENT_BACK, 13, 43, 243, 79 )
+UI_SetSize( id, 13, 43 )
+
+------
+-- Area Manager
+------
+frmTickets = UI_CreateForm( "frmTickets", FALSE, 429, 562, 0, 0, TRUE, FALSE )
+UI_ShowForm( frmTickets, TRUE )
+UI_SetIsDrag( frmTickets, TRUE )
+UI_AddFormToTemplete( frmTickets, FORM_MAIN )
+UI_FormSetIsEscClose( frmTickets, TRUE )
+UI_FormSetHotKey( frmTickets, ALT_KEY, HOTKEY_V)
+UI_SetFormStyleEx(frmTickets, FORM_CENTERBOTTOM, 0, 160)
+
+setBackground(frmTickets, true, 429, 562, 225)
+
+labFormname = UI_CreateCompent(frmTickets, LABELEX_TYPE, "labFormname", 429, 14, 0, 20)
+UI_SetCaption( labFormname, "AREA MANAGER" )
+UI_SetTextColor( labFormname, COLOR_WHITE )
+UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+btnMazes = UI_CreateCompent(frmTickets, BUTTON_TYPE, "btnMazes", 123, 31, 30, 48)
+UI_LoadButtonImage(btnMazes, "./texture/ascaron_ui/asc-part-02.png", 123, 31, 608, 464, FALSE)
+
+btnAreas = UI_CreateCompent(frmTickets, BUTTON_TYPE, "btnAreas", 123, 31, 153, 48)
+UI_LoadButtonImage(btnAreas, "./texture/ascaron_ui/asc-part-02.png", 123, 31, 731, 464, FALSE)
+
+btnBosses = UI_CreateCompent(frmTickets, BUTTON_TYPE, "btnBosses", 123, 31, 276, 48)
+UI_LoadButtonImage(btnBosses, "./texture/ascaron_ui/asc-part-02.png", 123, 31, 854, 464, FALSE)
+
+-- btnNpc = UI_CreateCompent( frmTickets, BUTTON_TYPE, "btnNpc", 91, 47, 45+ 293, 65 )
+-- UI_LoadButtonImage( btnNpc, "./texture/gui/btnServer.png", 91, 47, 1132, 519, FALSE )
+
+image = UI_CreateCompent(frmTickets, IMAGE_TYPE, "image", 369, 2, 30, 50+29)
+UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 369, 2, 0, 381)
+
+local szTicketName = {}
+local szTicketPrice = {}
+local szTicketImgPrice = {}
+local szTicketDesc = {}
+local szTicketIcon = {}
+local szBtnLine = {}
+
+local posx = 30
+local posy = 33
+local padding = 72
+
+for page_id = 0, 3, 1 do
+	local str_id = 1
+	
+	for i = 0, 71, 1 do
+		szTicketName[page_id] = {}
+		szTicketPrice[page_id] = {}
+		szTicketImgPrice[page_id] = {}
+		szTicketDesc[page_id] = {}
+		szTicketIcon[page_id] = {}
+		szBtnLine[page_id] = {}
+
+		-- icon
+		local _posy = posy + (str_id * padding)
+		szTicketIcon[page_id][i] =  UI_CreateCompent( frmTickets, IMAGE_TYPE, "imgIcon_".. page_id.."_" .. i, 32, 32, posx + 15, _posy + 6)
+		
+		szBtnLine[page_id][i] = UI_CreateCompent( frmTickets, BUTTON_TYPE, "btnLine_"..page_id.."_"..i, 369, 62, posx, _posy - 9 )
+		UI_LoadButtonImage(szBtnLine[page_id][i], "./texture/ascaron_ui/asc-part-02.png", 369, 62, 608, 597, FALSE)
+		
+		szTicketName[page_id][i] = UI_CreateCompent( frmTickets, LABELEX_TYPE, "labName_"..page_id.."_"..i, 10, 150, posx + 64,  _posy + 6 )
+		UI_SetCaption( szTicketName[page_id][i], "Item "..i)
+		UI_SetTextColor( szTicketName[page_id][i], argbColor("ffffff") )
+		UI_SetLabelExFont( szTicketName[page_id][i], EXO_Regular_S14, FALSE, COLOR_WHITE )
+		UI_SetIsShow(szTicketName[page_id][i],FALSE)
+		
+		szTicketPrice[page_id][i] = UI_CreateCompent( frmTickets, LABELEX_TYPE, "labPrice_"..page_id.."_"..i, 10, 150, posx + 32 + 229 + 15, _posy + 18)
+		UI_SetCaption( szTicketPrice[page_id][i], "1.000 ")
+		UI_SetTextColor( szTicketPrice[page_id][i], argbColor("e9e9e9") )
+		UI_SetLabelExFont( szTicketPrice[page_id][i], EXO_Regular_S12, FALSE, COLOR_WHITE )
+		UI_SetIsShow(szTicketPrice[page_id][i],FALSE)
+		
+		szTicketImgPrice[page_id][i] =  UI_CreateCompent( frmTickets, IMAGE_TYPE, "imgPrice_".. page_id.."_" .. i, 29, 29, 330 + posx, _posy + 10)
+		UI_LoadImage( szTicketImgPrice[page_id][i], "./texture/ascaron_ui/asc-part-01.png", NORMAL, 29, 29, 243, 326)
+		
+		_posy = _posy + 25
+		szTicketDesc[page_id][i] = UI_CreateCompent( frmTickets, LABELEX_TYPE, "labDescription_"..page_id.."_"..i, 10, 150, posx + 64, _posy )
+		UI_SetCaption( szTicketDesc[page_id][i], "Remark"..i)
+		UI_SetTextColor( szTicketDesc[page_id][i], argbColor("e9e9e9"))
+		UI_SetLabelExFont( szTicketDesc[page_id][i], EXO_Regular_S12, FALSE, COLOR_WHITE )
+		
+		str_id = str_id + 1
+	
+		if (str_id > 6) then
+			str_id = 1
+		end
+	end
+	
+end
+
+btnBackPage = UI_CreateCompent( frmTickets, BUTTON_TYPE, "btnBackPage", 20, 20, 169, 527)
+UI_LoadButtonImage( btnBackPage, "./texture/ascaron_ui/asc-part-01.png", 20, 20, 409, 350, TRUE)
+
+labPagination = UI_CreateCompent(frmTickets, LABELEX_TYPE, "labPagination", 429, 14, 0, 529)
+UI_SetCaption(labPagination, "Page (0/0)" )
+UI_SetTextColor(labPagination, argbColor("a3a3a3"))
+UI_SetLabelExFont(labPagination, EXO_Regular_S14, FALSE, COLOR_WHITE )
+UI_SetCaptionIsCenter(labPagination, TRUE)
+
+btnNextPage = UI_CreateCompent( frmTickets, BUTTON_TYPE, "btnNextPage", 20, 20, 240, 527)
+UI_LoadButtonImage( btnNextPage, "./texture/ascaron_ui/asc-part-01.png", 20, 20, 409, 330, TRUE)

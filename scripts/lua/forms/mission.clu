@@ -1,0 +1,41 @@
+-----------------------------------------------------------------------
+-- Quest Log
+-----------------------------------------------------------------------
+frmMission = UI_CreateForm( "frmMission", FALSE, 600, 500, 0, 0, FALSE, FALSE )
+UI_FormSetHotKey(frmMission, ALT_KEY, HOTKEY_Q) 
+UI_ShowForm(frmMission, TRUE)
+UI_AddFormToTemplete(frmMission, FORM_MAIN)
+UI_SetIsDrag( frmMission, TRUE)
+UI_SetFormStyleEx(frmMission, FORM_CENTERBOTTOM, 0, 160)
+
+setBackground(frmMission, true, 600, 500, 225)
+
+labFormname = UI_CreateCompent(frmMission, LABELEX_TYPE, "labFormname", 600, 14, 0, 20)
+UI_SetCaption( labFormname, "QUEST LOG" )
+UI_SetTextColor( labFormname, COLOR_WHITE )
+UI_SetLabelExFont( labFormname, EXO_Regular_S16, FALSE, COLOR_BLACK )
+UI_SetCaptionIsCenter(labFormname, TRUE)
+
+------
+-- Сетка выбора квеста
+------
+setBackground2(frmMission, 540, 100, 100, 30, 50)
+trvMission = UI_CreateCompent( frmMission, TREE_TYPE, "trvMission", 520, 80, 40, 60)
+UI_SetIsDrag( trvEditor, TRUE )
+UI_TreeLoadImage( trvMission, enumTreeAddImage, "./texture/gui/old_gui/SystemBotton3.tga", 16, 16, 205, 120, 12, 12 )
+UI_TreeLoadImage( trvMission, enumTreeSubImage, "./texture/gui/old_gui/SystemBotton3.tga", 16, 16, 222, 120, 12, 12 )
+UI_SetFontTree(trvMission, EXO_Regular_S14)
+setScroll(trvMission)
+
+------
+-- Текст квеста
+------
+setBackground2(frmMission, 540, 268, 100, 30, 160)
+memMiss  = UI_CreateCompent(frmMission, MEMOEX_TYPE, "memMiss", 520, 248, 40, 170)
+UI_SetFontMemo(memMiss, NPC_DIALOGUE, argbColor("ffffff"))
+setScroll(memMiss)
+
+------
+-- 
+------
+btnBreak = CreateButton(4, frmMission, "btnBreak", "Abandon Quest", EXO_Regular_S16, 165, 42, 405, 438)

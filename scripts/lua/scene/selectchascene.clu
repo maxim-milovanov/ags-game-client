@@ -1,0 +1,5 @@
+nScene = SN_CreateScene( enumSelectChaScene, "—°‘Ò»ÀŒÔ", "", FORM_SELECT, 3, 2, 10, 0 )	
+GP_GotoScene(nScene)
+
+SN_SetIsShowMinimap(FALSE)
+SN_SetIsShow3DCursor(FALSE)

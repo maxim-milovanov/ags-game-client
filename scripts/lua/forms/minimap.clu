@@ -1,0 +1,127 @@
+-----------------------------------------------------------------------
+-- Minimap
+-----------------------------------------------------------------------	
+frmMinimap = UI_CreateForm( "frmMinimap", FALSE, 200, 210, 20, 20, TRUE, FALSE )
+UI_ShowForm( frmMinimap, TRUE )
+UI_AddFormToTemplete( frmMinimap, FORM_MAIN )
+UI_FormSetIsEscClose( frmMinimap, FALSE )
+UI_SetFormStyleEx(frmMinimap, FORM_RIGHTTOP, 20, 20)
+
+image = UI_CreateCompent(frmMinimap, IMAGE_TYPE, "image", 200, 30, 0, 0)
+UI_LoadImage(image, "./texture/ascaron_ui/frmMinimap.png", NORMAL, 200, 30, 0, 0)
+UI_SetAlpha(frmMinimap, 225)
+
+labMapName = UI_CreateCompent( frmMinimap, LABELEX_TYPE, "labMapName", 51, 12, 10, 8 )
+UI_SetCaption( labMapName, "0" )
+UI_SetTextColor( labMapName, COLOR_WHITE )
+UI_SetLabelExFont( labMapName, EXO_Regular_S12, FALSE, COLOR_BLACK )
+
+labServerTime = UI_CreateCompent( frmMinimap, LABELEX_TYPE, "labServerTime", 51, 12, 136, 8)
+UI_SetCaption(labServerTime, "00:00:00")
+UI_SetTextColor(labServerTime, argbColor("babbbb"))
+UI_SetLabelExFont(labServerTime, EXO_Regular_S12, FALSE, COLOR_BLACK)
+
+setBorderMiddle(frmMinimap, 200, 200, 200, 0, 35)
+
+imgMinimapRect = UI_CreateCompent( frmMinimap, IMAGE_TYPE, "imgMinimapRect", 198, 198, 2, 37 )
+
+n  = 0
+while 1 do
+	local name = "labMapPos"..n
+	labMapPos = UI_CreateCompent( frmMinimap, LABELEX_TYPE, name, 200, 16, 0, 40)
+	UI_SetCaption( labMapPos, "2200, 2200" )
+	UI_SetTextColor( labMapPos, COLOR_WHITE )
+	UI_SetLabelExFont( labMapPos, EXO_Regular_S14, TRUE, COLOR_BLACK )
+	
+	if n ~= 0 then 
+		UI_SetIsShow( labMapPos, FALSE ) 
+	end
+	
+	n = n + 1
+	if n == 10 then 
+		break 
+	end	
+end
+
+btnSearch = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnSearch", 30, 30, -15, 100 - 49)
+UI_LoadButtonImage( btnSearch, "./texture/ascaron_ui/asc-part-01.png", 30, 30, 138, 113, TRUE)
+UI_SetHint(btnSearch, "Radar (Alt + T)")
+UI_SetAlpha(btnSearch, 220)
+
+btnOpenWorldMap = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnOpenWorldMap", 30, 30, -15, 135 - 49)
+UI_LoadButtonImage(btnOpenWorldMap, "./texture/ascaron_ui/asc-part-01.png", 30, 30, 138, 143, TRUE)
+UI_SetHint(btnOpenWorldMap, "World Map (Alt + W)")
+UI_SetAlpha(btnOpenWorldMap, 220)
+
+btnTeleports = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnTeleports", 30, 30, -15, 170 - 49)
+UI_LoadButtonImage( btnTeleports, "./texture/ascaron_ui/asc-part-01.png", 30, 30, 138, 173, TRUE)
+UI_SetHint(btnTeleports, "Area Manager (Alt + V)")
+UI_SetAlpha(btnTeleports, 220)
+
+btnWiki = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnWiki", 30, 30, -15, 205 - 49)
+UI_LoadButtonImage(btnWiki, "./texture/ascaron_ui/asc-part-05.png", 30, 30, 340, 0, TRUE)
+UI_SetHint(btnWiki, "Wikipedia")
+UI_SetAlpha(btnWiki, 220)
+
+btnDatabase = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnDatabase", 30, 30, -15, 240 - 49)
+UI_LoadButtonImage(btnDatabase, "./texture/ascaron_ui/asc-part-05.png", 30, 30, 340, 30, TRUE)
+UI_SetHint(btnDatabase, "Database (ALT + I)")
+UI_SetAlpha(btnDatabase, 220)
+
+btnOpenMarket = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnOpenMarket", 44, 44, 14, 247)
+UI_LoadButtonImage(btnOpenMarket, "./texture/ascaron_ui/asc-part-05.png", 44, 44, 460, 0, TRUE)
+--UI_SetHint(btnOpenMarket, "Store (Alt + F)")
+UI_SetAlpha(btnOpenMarket, 220)
+
+btnOpenStore = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnOpenStore", 117, 44, 54 + 15, 247)
+UI_LoadButtonImage( btnOpenStore, "./texture/ascaron_ui/asc-part-03.png", 117, 44, 688, 182, FALSE)
+UI_SetHint(btnOpenStore, "Store (Alt + F)")
+UI_SetAlpha(btnOpenStore, 220)
+
+-----------------------------------------------------------------------
+-- Radar (input x, y)
+-----------------------------------------------------------------------	
+frmSearch = UI_CreateForm( "frmSearch", FALSE, 400, 144, 0, 0, TRUE, FALSE )
+UI_ShowForm(frmSearch, FALSE)
+UI_AddFormToTemplete(frmSearch, FORM_MAIN)
+UI_FormSetIsEscClose(frmSearch, TRUE )
+UI_FormSetHotKey(frmSearch, ALT_KEY, HOTKEY_T)
+UI_SetIsDrag(frmSearch, TRUE)
+UI_SetFormStyleEx(frmSearch, FORM_CENTERBOTTOM, 0, 160)
+
+setBackground(frmSearch, false, 400, 144, 225)
+
+labCoordinates = UI_CreateCompent(frmSearch, LABELEX_TYPE, "labCoordinates", 420, 20, 55, 32)
+UI_SetCaption(labCoordinates, "Coordinates")
+UI_SetTextColor(labCoordinates, argbColor("c0c0c0"))
+UI_SetLabelExFont(labCoordinates, EXO_Regular_S16, FALSE, COLOR_BLACK)
+
+imgage = UI_CreateCompent(frmSearch, IMAGE_TYPE, "imgage", 18, 18, 30, 33)
+UI_LoadImage(imgage, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 18, 18, 192, 242)
+
+imgage = UI_CreateCompent(frmSearch, IMAGE_TYPE, "imgage", 88, 42, 184, 20)
+UI_LoadImage(imgage, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 88, 42, 885, 513)
+
+imgage = UI_CreateCompent(frmSearch, IMAGE_TYPE, "imgage", 88, 42, 282, 20)
+UI_LoadImage(imgage, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 88, 42, 885, 513)
+
+edtLeft = UI_CreateCompent( frmSearch, EDIT_TYPE, "edtLeft", 98, 42, 184 + 25 - 8, 20 + 12)
+UI_SetTextColor( edtLeft, argbColor("c0c0c0") )
+UI_SetEditMaxNum( edtLeft, 4 )
+UI_SetEditMaxNumVisible( edtLeft, 4 )
+UI_SetEditCursorColor( edtLeft, argbColor("c0c0c0") )
+UI_SetEditFont( edtLeft, EXO_Regular_S16 )
+UI_SetEditClue(edtLeft, "1455", argbColor("908a92"))
+
+edtRight = UI_CreateCompent( frmSearch, EDIT_TYPE, "edtRight", 98, 42, 286 + 17, 20 + 12)
+UI_SetTextColor( edtRight, argbColor("c0c0c0") )
+UI_SetEditMaxNum( edtRight, 4 )
+UI_SetEditMaxNumVisible( edtRight, 4 )
+UI_SetEditCursorColor( edtRight, argbColor("c0c0c0") )
+UI_SetEditFont( edtRight, EXO_Regular_S16 )
+UI_SetEditClue(edtRight, "764", argbColor("908a92"))
+
+btnYes = CreateButton(4, frmSearch, "btnYes", "ACCEPT", EXO_Regular_S16, 165, 42, 205, 82)
+
+btnNo = CreateButton(5, frmSearch, "btnNo", "CANCEL", EXO_Regular_S16, 165, 42, 30, 82)
+UI_SetButtonModalResult( btnNo, BUTTON_CLOSE )
