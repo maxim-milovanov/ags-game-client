@@ -1026,9 +1026,9 @@ imgBackGround6 = UI_CreateCompent( frmPKSilver, IMAGE_TYPE, "imgBackGround6", 46
 UI_LoadImage( imgBackGround6, "./texture/gui/old_gui/fighting5.tga", NORMAL, 46,130, 46, 0 )
 
 --创建关闭按钮
-btnClose = UI_CreateCompent( frmPKSilver, BUTTON_TYPE, "btnClose", 14, 14, 531, 3 )
-UI_LoadButtonImage( btnClose, "./texture/gui/old_gui/PublicC.tga", 14, 14, 116, 175, TRUE )
-UI_SetButtonModalResult( btnClose, BUTTON_CLOSE )
+btnClose = UI_CreateCompent(frmPKSilver, BUTTON_TYPE, "btnClose", 14, 14, 531, 3)
+UI_LoadButtonImage(btnClose, "./texture/gui/old_gui/PublicC.tga", 14, 14, 116, 175, TRUE)
+UI_SetButtonModalResult(btnClose, BUTTON_CLOSE)
 
 --创建结果表单
 --标头--程序不处理
