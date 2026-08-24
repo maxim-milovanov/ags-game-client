@@ -1,3 +1,5 @@
 user/accounts/*.account
 *.log
 lua_err.txt
+settings.ini
+user/settings.ini
