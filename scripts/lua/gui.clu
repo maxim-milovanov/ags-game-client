@@ -1446,6 +1446,10 @@ function UI_SetPageItemCaption( page_item_id, caption, font, color, activeColor,
 	CLU_Call( "UI_SetPageItemCaption", page_item_id, caption, font, color, activeColor, x, y, isCenter )
 end
 
+function UI_SetEditDigit(form, digit)
+	CLU_Call( "UI_SetEditDigit", form, digit)
+end
+
 UI_ItemBarLoadImage( "texture/ui/system/progress.tga", 64, 16, 0, 0 )
 
 

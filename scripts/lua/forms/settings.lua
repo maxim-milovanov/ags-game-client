@@ -76,20 +76,37 @@ UI_SetCaption(labResolutionDescription, "*description" )
 UI_SetTextColor(labResolutionDescription, argbColor("6f6f6f"))
 UI_SetLabelExFont(labResolutionDescription, EXO_Regular_S10, FALSE, COLOR_BLACK)
 
-cboResolution  = UI_CreateCompent(frmSettings, COMBO_TYPE, "cboResolution", 98, 20, left_block_x + 210, left_block_y + 10)
+cboResolution  = UI_CreateCompent(frmSettings, COMBO_TYPE, "cboResolution", 90, 20, left_block_x + 210 - 45, left_block_y + 10)
 UI_ComboSetStyle(cboResolution, TRUE)
 UI_ComboSetTextColor(cboResolution, COLOR_WHITE)
 
 lstResolution = UI_GetList(cboResolution)
 UI_SetListFontColor(lstResolution, COLOR_WHITE, COLOR_WHITE)
-UI_SetSize( lstResolution, 81, 175 )
-UI_SetMargin( lstResolution, 16,6,16,0 )
-UI_SetListRowHeight( lstResolution, 18 )
-UI_LoadImage( lstResolution, "./texture/ascaron_ui/asc-part-01.png", COMPENT_BACK, 5, 5, 18, 18)
-UI_AddListText( lstResolution, "1024x768" )
-UI_SetListIsMouseFollow( lstResolution, TRUE)
-UI_ComboSetTextColor( lstResolution, COLOR_WHITE )
+UI_SetSize(lstResolution, 81, 175)
+UI_SetMargin(lstResolution, 12, 6, 16, 0)
+UI_SetListRowHeight(lstResolution, 18)
+UI_LoadImage(lstResolution, "./texture/ascaron_ui/asc-part-01.png", COMPENT_BACK, 5, 5, 18, 18)
+UI_AddListText(lstResolution, "1024x768")
+UI_SetListIsMouseFollow(lstResolution, TRUE)
+UI_ComboSetTextColor(lstResolution, COLOR_WHITE)
 setScroll(lstResolution)
+
+
+cboUIScale  = UI_CreateCompent(frmSettings, COMBO_TYPE, "cboUIScale", 60, 20, left_block_x + 210 + 35, left_block_y + 10)
+UI_ComboSetStyle(cboUIScale, TRUE)
+UI_ComboSetTextColor(cboUIScale, COLOR_WHITE)
+
+lstScale = UI_GetList(cboUIScale)
+UI_SetListFontColor(lstScale, COLOR_WHITE, COLOR_WHITE)
+UI_SetSize(lstScale, 60, 115)
+UI_SetMargin(lstScale, 12, 6, 16, 0)
+UI_SetListRowHeight(lstScale, 18)
+UI_LoadImage(lstScale, "./texture/ascaron_ui/asc-part-01.png", COMPENT_BACK, 5, 5, 18, 18)
+UI_AddListText(lstScale, "1024x768")
+UI_SetListIsMouseFollow(lstScale, TRUE)
+UI_ComboSetTextColor(lstScale, COLOR_WHITE)
+setScroll(lstScale)
+
 left_block_y = left_block_y + 60 
 
 ------
