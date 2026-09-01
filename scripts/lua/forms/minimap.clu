@@ -69,7 +69,7 @@ UI_SetHint(btnDatabase, "Database (ALT + I)")
 UI_SetAlpha(btnDatabase, 220)
 
 btnOpenMarket = UI_CreateCompent( frmMinimap, BUTTON_TYPE, "btnOpenMarket", 44, 44, 14, 247)
-UI_LoadButtonImage(btnOpenMarket, "./texture/ascaron_ui/asc-part-05.png", 44, 44, 460, 0, TRUE)
+UI_LoadButtonImage(btnOpenMarket, "./texture/ascaron_ui/asc-part-05.png", 44, 44, 0, 281, TRUE)
 --UI_SetHint(btnOpenMarket, "Store (Alt + F)")
 UI_SetAlpha(btnOpenMarket, 220)
 

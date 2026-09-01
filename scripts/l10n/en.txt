@@ -972,7 +972,6 @@
 [972]	"Model pet: %s"
 [973]	"Movement speed (PvE): +%d%%"
 [974]	"Movement speed (PvP): +%d"
-[975]	"[Glow] %s"
 [976]	"%s: Used %d of %d"
 [977]	"Seconds (%d/%d)"
 [978]	"Force show names: On"

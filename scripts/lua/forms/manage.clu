@@ -19,16 +19,12 @@ UI_SetMargin( ApplyMouseRight, 10, 5, 5, 5 )
 UI_MenuLoadFont(ApplyMouseRight, EXO_Regular_S14, argbColor("FFD166"), argbColor("ffffff"), argbColor("737374"))
 
 setBackground(frmManage, true, 528, 600 - 10, 225)
-setBackground2(frmManage, 468, 386 - 50, 100, 30, 150)
 
 labFormname = UI_CreateCompent(frmManage, LABELEX_TYPE, "labFormname", 528, 14, 0, 20)
 UI_SetCaption( labFormname, "GUILD" )
 UI_SetTextColor( labFormname, argbColor("ffffff"))
 UI_SetLabelExFont( labFormname, EXO_Regular_S14, FALSE, COLOR_BLACK )
 UI_SetCaptionIsCenter(labFormname, TRUE)
-
-imgage = UI_CreateCompent(frmManage, IMAGE_TYPE, "imgage", 468, 30, 30, 110)
-UI_LoadImage(imgage, "./texture/ascaron_ui/asc-part-03.png", NORMAL, 468, 30, 330, 84)
 
 image = UI_CreateCompent(frmManage, IMAGE_TYPE, "image", 468, 2, 30, 98)
 UI_LoadImage(image, "./texture/ascaron_ui/asc-part-01.png", NORMAL, 468, 2, 0, 381)
@@ -39,19 +35,51 @@ UI_SetPageButton( pgePublic, PAGE_BUTTON_CUSTOM, 48, 16 )
 
 -- Страница игроков
 pgPlayers = UI_CreatePageItem( pgePublic )
-ttlNum = UI_GetPageItemObj( pgPlayers, PAGE_ITEM_TITLE )
-UI_LoadImage( ttlNum, "./texture/ascaron_ui/asc-part-03.png", PAGE_ITEM_TITLE_NORMAL, 156, 31, 330, 114)
-UI_LoadImage( ttlNum, "./texture/ascaron_ui/asc-part-03.png", PAGE_ITEM_TITLE_ACTIVE, 156, 31, 486, 114)
+ttlNum = UI_GetPageItemObj(pgPlayers, PAGE_ITEM_TITLE)
+UI_SetPageItemCaption(pgPlayers, "PLAYERS", EXO_Regular_S14, argbColor("808080"), argbColor("ffca61"), 0, 8, TRUE)
+UI_LoadImage(ttlNum, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_NORMAL, 123, 31, 100, 100)
+UI_LoadImage(ttlNum, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_ACTIVE, 123, 31, 480, 250)
 UI_SetPos(ttlNum, 30, 69)
-UI_SetSize(ttlNum, 156, 31)
+UI_SetSize(ttlNum, 123, 31)
 
 -- Страница заявок
 pgApply = UI_CreatePageItem( pgePublic )
 ttlLive = UI_GetPageItemObj( pgApply, PAGE_ITEM_TITLE )
-UI_LoadImage( ttlLive, "./texture/ascaron_ui/asc-part-03.png", PAGE_ITEM_TITLE_NORMAL, 156, 31, 330, 145)
-UI_LoadImage( ttlLive, "./texture/ascaron_ui/asc-part-03.png", PAGE_ITEM_TITLE_ACTIVE, 156, 31, 486, 145)
-UI_SetPos( ttlLive, 186, 69)
-UI_SetSize(ttlLive, 156, 31)
+UI_SetPageItemCaption(pgApply, "APPLY", EXO_Regular_S14, argbColor("808080"), argbColor("ffca61"), 0, 8, TRUE)
+UI_LoadImage(ttlLive, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_NORMAL, 123, 31, 100, 100)
+UI_LoadImage(ttlLive, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_ACTIVE, 123, 31, 480, 250)
+UI_SetPos(ttlLive, 30 + 123, 69)
+UI_SetSize(ttlLive, 123 - 24, 31)
+
+-- Дроп-лист гильдии
+pgDrop = UI_CreatePageItem( pgePublic )
+ttlDrop = UI_GetPageItemObj( pgDrop, PAGE_ITEM_TITLE )
+UI_SetPageItemCaption(pgDrop, "DROP INFO", EXO_Regular_S14, argbColor("808080"), argbColor("ffca61"), 0, 8, TRUE)
+UI_LoadImage(ttlDrop, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_NORMAL, 123, 31, 100, 100)
+UI_LoadImage(ttlDrop, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_ACTIVE, 123, 31, 480, 250)
+UI_SetPos(ttlDrop, 30 + 123 + 123 - 24, 69)
+UI_SetSize(ttlDrop, 123, 31)
+
+-- Банк гильдии
+pgBank = UI_CreatePageItem( pgePublic )
+ttlBank = UI_GetPageItemObj( pgBank, PAGE_ITEM_TITLE )
+UI_SetPageItemCaption(pgBank, "BANK", EXO_Regular_S14, argbColor("808080"), argbColor("ffca61"), 0, 8, TRUE)
+UI_LoadImage(ttlBank, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_NORMAL, 123, 31, 100, 100)
+UI_LoadImage(ttlBank, "./texture/ascaron_ui/asc-part-05.png", PAGE_ITEM_TITLE_ACTIVE, 123, 31, 480, 250)
+UI_SetPos(ttlBank, 30 + 123 + 123 + 123 - 24, 69)
+UI_SetSize(ttlBank, 123, 31)
+
+imgage = UI_CreateCompent(frmManage, IMAGE_TYPE, "imgage", 468, 30, 30, 110)
+UI_LoadImage(imgage, "./texture/ascaron_ui/asc-part-03.png", NORMAL, 468, 30, 330, 84)
+UI_AddCompent(pgPlayers, imgage)
+UI_AddCompent(pgApply, imgage)
+
+listBackground = UI_CreateCompent(frmManage, IMAGE_TYPE, "listBackground", 468, 336, 30, 150)
+UI_LoadImage(listBackground, "./texture/ascaron_ui/asc-part-05.png", NORMAL, 468, 336, 0, 325)
+UI_SetAlpha(listBackground, 130)
+UI_AddCompent(pgPlayers, listBackground)
+UI_AddCompent(pgApply, listBackground)
+
 
 ------
 -- Фильтры
@@ -118,45 +146,73 @@ labName = UI_CreateCompent( frmManage, LABELEX_TYPE, "labName", 95, 13, 40, 116)
 UI_SetCaption( labName, "Ascaron Online" )
 UI_SetTextColor( labName, argbColor("ffffff"))
 UI_SetLabelExFont( labName, EXO_Regular_S14, FALSE, COLOR_WHITE )
+UI_AddCompent(pgPlayers, labName)
+UI_AddCompent(pgApply, labName)
 
 labLeader = UI_CreateCompent( frmManage, LABELEX_TYPE, "labLeader", 95, 13, 325, 116)
 UI_SetCaption( labLeader, "Leader:" )
 UI_SetTextColor( labLeader, argbColor("a7a7a7"))
 UI_SetLabelExFont( labLeader, EXO_Regular_S14, FALSE, COLOR_WHITE )
+UI_AddCompent(pgPlayers, labLeader)
+UI_AddCompent(pgApply, labLeader)
 
 labPeople = UI_CreateCompent( frmManage, LABELEX_TYPE, "labPeople", 95, 13, 390, 116)
 UI_SetCaption(labPeople, "%s")
 UI_SetTextColor(labPeople, argbColor("ffffff"))
 UI_SetLabelExFont(labPeople, EXO_Regular_S14, FALSE, COLOR_WHITE)
+UI_AddCompent(pgPlayers, labPeople)
+UI_AddCompent(pgApply, labPeople)
 
 labPlayers = UI_CreateCompent( frmManage, LABELEX_TYPE, "labPlayers", 95, 13, 30, 546 - 45)
 UI_SetCaption( labPlayers, "Players:" )
 UI_SetTextColor( labPlayers, argbColor("a7a7a7"))
 UI_SetLabelExFont( labPlayers, EXO_Regular_S13, FALSE, COLOR_WHITE )
+UI_AddCompent(pgPlayers, labPlayers)
+UI_AddCompent(pgApply, labPlayers)
 
 labNum = UI_CreateCompent( frmManage, LABELEX_TYPE, "labNum", 50, 13, 88, 546 - 45)
 UI_SetCaption( labNum, "Players 0\150" )
 UI_SetTextColor( labNum, argbColor("ffffff") )
 UI_SetLabelExFont( labNum, EXO_Regular_S13, FALSE, COLOR_WHITE )
+UI_AddCompent(pgPlayers, labNum)
+UI_AddCompent(pgApply, labNum)
 
 labOnline = UI_CreateCompent( frmManage, LABELEX_TYPE, "labOnline", 95, 13, 410, 546 - 45)
 UI_SetCaption( labOnline, "Online:" )
 UI_SetTextColor( labOnline, argbColor("a7a7a7"))
 UI_SetLabelExFont( labOnline, EXO_Regular_S13, FALSE, COLOR_WHITE )
+UI_AddCompent(pgPlayers, labOnline)
+UI_AddCompent(pgApply, labOnline)
 
 labOnlineAmount = UI_CreateCompent( frmManage, LABELEX_TYPE, "labOnlineAmount", 95, 13, 460, 546 - 45)
 UI_SetCaption( labOnlineAmount, "99/99" )
 UI_SetTextColor( labOnlineAmount, argbColor("ffffff"))
 UI_SetLabelExFont( labOnlineAmount, EXO_Regular_S13, FALSE, COLOR_WHITE )
+UI_AddCompent(pgPlayers, labOnlineAmount)
+UI_AddCompent(pgApply, labOnlineAmount)
 
 -- Расформировать гильдию
 btnSan = CreateButton(7, frmManage, "btnSan", "DISBAND", EXO_Regular_S16, 130, 42, 368, 576 - 50)
+UI_AddCompent(pgPlayers, btnSan)
+UI_AddCompent(pgApply, btnSan)
 
 -- Расформировать гильдию
 btnLeave = CreateButton(7, frmManage, "btnLeave", "LEAVE", EXO_Regular_S16, 130, 42, 368, 576 - 50)
+UI_AddCompent(pgPlayers, btnLeave)
+UI_AddCompent(pgApply, btnLeave)
 
 -- Motto
 btnMaxim = CreateButton(6, frmManage, "btnMaxim", "MOTTO", EXO_Regular_S16, 130, 42, 30, 576 - 50)
+UI_AddCompent(pgPlayers, btnMaxim)
+UI_AddCompent(pgApply, btnMaxim)
+
+-- Сетка для предметов в банке
+grdBank = UI_CreateCompent(frmManage, GOODS_GRID_TYPE, "grdBank", 260, 330, 30, 150) 
+UI_SetGridSpace(grdBank, 9, 9)
+UI_SetGridContent(grdBank, 16, 6)
+UI_SetGridUnitSize(grdBank, 32, 32)
+UI_SetMargin(grdBank, 0, 0, 0, 0)
+UI_AddCompent(pgBank, grdBank)
 
 -----------------------------------------------------------------------
 -- Edit motto

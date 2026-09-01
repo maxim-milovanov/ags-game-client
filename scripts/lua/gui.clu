@@ -1439,7 +1439,7 @@ function CreateButton(type, frm, button_name, szCaption, szFont, size_x, size_y,
 		UI_LoadButtonImage(Item, "./texture/ascaron_ui/asc-part-03.png", 70, 42, 190, 336, FALSE)
 	elseif (type == 17) then
 		UI_ButtonSetText(Item, szCaption, szFont, argbColor("000000"), 0, 0)
-		UI_LoadButtonImage(Item, "./texture/ascaron_ui/asc-part-05.png", 120, 60, 0, 281, TRUE)
+		UI_LoadButtonImage(Item, "./texture/ascaron_ui/asc-part-05.png", 120, 60, 460, 0, TRUE)
 	end
 	
 	return Item
