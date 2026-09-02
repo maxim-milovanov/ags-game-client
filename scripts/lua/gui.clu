@@ -1275,23 +1275,33 @@ end
 -- startPosX - начальная координата X для сетки (левый верхний угол)
 -- startPosY - начальная координата Y для сетки (левый верхний угол)
 -- Функция для построения сетки изображений и возврата координат для innerSize (например, 32x32)
-function CreateImageGrid(form, cols, rows, indent, grdWidth, grdHeight, imgPath, imgWidth, imgHeight, imgPosX, imgPosY, imgAlpha, startPosX, startPosY)
+function CreateImageGrid(form, cols, rows, indent, grdWidth, grdHeight, imgPath, imgWidth, imgHeight, imgPosX, imgPosY, imgAlpha, startPosX, startPosY, addComponent)
     local coords = {}
-
+	local imageName = string.format("img%s", form)
+	
     for r = 1, rows do
+		
+		imageName = imageName .. r
+		
         -- координата Y текущей строки
         local y = startPosY + (r - 1) * (grdHeight + indent)
 
         for c = 1, cols do
+			imageName = imageName .. c
+			
             -- координата X текущей колонки
             local x = startPosX + (c - 1) * (grdWidth + indent)
 
             -- уникальное имя контейнера
             local name = string.format("imgGrid_%d_%d", r, c)
 
-            local imgGrid = UI_CreateCompent(form, IMAGE_TYPE, name, grdWidth, grdHeight, x, y)
-            UI_LoadImage(imgGrid, imgPath, NORMAL, imgWidth, imgHeight, imgPosX, imgPosY)
-			UI_SetAlpha(imgGrid, imgAlpha)
+            local imageName = UI_CreateCompent(form, IMAGE_TYPE, name, grdWidth, grdHeight, x, y)
+            UI_LoadImage(imageName, imgPath, NORMAL, imgWidth, imgHeight, imgPosX, imgPosY)
+			UI_SetAlpha(imageName, imgAlpha)
+			
+			if (addComponent) then
+				UI_AddCompent(addComponent, imageName)
+			end
 			
             -- координаты для вложенного innerSize×innerSize объекта (например 32х32), по центру
             local cx = x + (grdWidth  - 32) / 2
