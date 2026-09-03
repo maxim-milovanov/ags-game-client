@@ -21,7 +21,6 @@ UI_SetCaptionIsCenter(labFormname, TRUE)
 ------
 setBackground2(frmMission, 540, 100, 100, 30, 50)
 trvMission = UI_CreateCompent( frmMission, TREE_TYPE, "trvMission", 520, 80, 40, 60)
-UI_SetIsDrag( trvEditor, TRUE )
 UI_TreeLoadImage( trvMission, enumTreeAddImage, "./texture/gui/old_gui/SystemBotton3.tga", 16, 16, 205, 120, 12, 12 )
 UI_TreeLoadImage( trvMission, enumTreeSubImage, "./texture/gui/old_gui/SystemBotton3.tga", 16, 16, 222, 120, 12, 12 )
 UI_SetFontTree(trvMission, EXO_Regular_S14)

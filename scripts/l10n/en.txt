@@ -1178,3 +1178,8 @@
 [1178]	"Assign trusted member"
 [1179]	"Remove role"
 [1180]	"You do not have permission to manage the guild bank."
+[1181]	"The character will start auto-routing to coordinates [%d, %d]"
+[1182]	"The target is on another map: %s"
+[1183]	"Auto-routing is unavailable while controlling a ship."
+[1184]	"Coordinates [%d, %d] are unavailable on the current map."
+[1185]	"Could not open the link. Check your default browser settings."

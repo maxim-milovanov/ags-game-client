@@ -147,7 +147,7 @@ UI_AddCompent(pgApply, listBackground)
 	UI_SetListIsMouseFollow(lstAsk, FALSE)
 	UI_SetListRowHeight( lstAsk, 26 )
 	setScroll(lstAsk)
-	UI_AddCompent(pgApply, lstNum)
+	UI_AddCompent(pgApply, lstAsk)
 	
 labName = UI_CreateCompent( frmManage, LABELEX_TYPE, "labName", 95, 13, 40, 116)
 UI_SetCaption( labName, "Ascaron Online" )
@@ -223,10 +223,10 @@ UI_SetMargin(grdBank, 0, 0, 0, 0)
 setScroll(grdBank)
 UI_AddCompent(pgBank, grdBank)
 
-logBackground = UI_CreateCompent(frmManage, IMAGE_TYPE, "listBackground", 468 - 20, 153, 40, 363)
-UI_LoadImage(logBackground, "./texture/ascaron_ui/asc-part-05.png", NORMAL, 468, 336, 0, 325)
-UI_SetAlpha(logBackground, 130)
-UI_AddCompent(pgBank, logBackground)
+bankLogBackground = UI_CreateCompent(frmManage, IMAGE_TYPE, "bankLogBackground", 468 - 20, 153, 40, 363)
+UI_LoadImage(bankLogBackground, "./texture/ascaron_ui/asc-part-05.png", NORMAL, 468, 336, 0, 325)
+UI_SetAlpha(bankLogBackground, 130)
+UI_AddCompent(pgBank, bankLogBackground)
 
 -- Подложка под основной игровой чат
 lstLog = UI_CreateCompent(frmManage, CHATVIEW_TYPE, "lstLog", 438 + 4 + 2, 133 + 20, 50, 363)
