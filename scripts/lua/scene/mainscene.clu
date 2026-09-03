@@ -1,3 +1,0 @@
-local nMainScene = SN_CreateScene( enumWorldScene, "Main scene", "general", FORM_MAIN, 300, 400, 400, 600)
-GP_GotoScene( nMainScene )
-

@@ -1,5 +1,0 @@
-nLoginScene = SN_CreateScene( enumLoginScene, "µÇÂ½³¡¾°", "", FORM_LOGIN,  300, 200, 100, 100 )	
-SN_SetIsShowMinimap( FALSE )
-SN_SetIsShow3DCursor( FALSE )
-
-GP_GotoScene( nLoginScene )
