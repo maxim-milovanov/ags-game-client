@@ -3,4 +3,3 @@ user/accounts/*.account
 lua_err.txt
 settings.ini
 user/settings.ini
-texture/character/000055055.bmp
